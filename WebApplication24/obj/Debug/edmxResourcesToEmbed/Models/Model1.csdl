@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="jobsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="jobsEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="tb_jobLinks" EntityType="jobsModel.tb_jobLinks" />
+    <EntitySet Name="Fees" EntityType="jobsModel.Fee" />
+    <EntitySet Name="PostItems" EntityType="jobsModel.PostItem" />
+    <EntitySet Name="JobPosts" EntityType="jobsModel.JobPost" />
+  </EntityContainer>
+  <EntityType Name="tb_jobLinks">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UnqueId" Type="Guid" />
+    <Property Name="link" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="linknamce" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Fee">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UnqueId" Type="Guid" />
+    <Property Name="General_OBC_EWS" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="SC_ST_PwD_Ex_Serviceman" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="For_Girls" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="PostItem">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UnqueId" Type="Guid" />
+    <Property Name="PostName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="NoOfPosts" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Qualification" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Salary" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="JobPost">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Department" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="LastDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="AdvertisementDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Location" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="OfficialNotification" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="NO_Post" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="UniqueId" Type="Guid" />
+    <Property Name="mode" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="StateName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="min_Age" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="max_Age" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+</Schema>

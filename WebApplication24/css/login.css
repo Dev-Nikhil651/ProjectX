@@ -1,0 +1,106 @@
+﻿body {
+   /* font-size: 1.6rem;
+    font-family: "Open Sans", sans-serif;*/
+    color: #2b3e51;
+    margin: 0;
+    padding: 0;
+}
+
+h2 {
+    font-weight: 300;
+    text-align: center;
+    color: white;
+}
+
+p {
+    position: relative;
+}
+
+#login-form-wrap {
+    background-color: #fff;
+    width: 100%;
+    max-width: 400px;
+    margin: 30px auto;
+    text-align: center;
+    padding: 0;
+    border-radius: 4px;
+    box-shadow: 0px 30px 50px 0px rgba(0, 0, 0, 0.2);
+}
+
+#login-form {
+    padding: 0 20px;
+}
+
+input {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    outline: none;
+    height: 45px;
+    border-radius: 4px;
+}
+
+    input[type="text"],
+    input[type="password"] {
+        padding: 0 10px;
+        color: #8a8b8e;
+        border: 1px solid #c2c0ca;
+        font-size: 16px;
+    }
+
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+            border-color: #3ca9e2;
+        }
+
+        input[type="text"]:valid ~ .validation,
+        input[type="password"]:valid ~ .validation {
+            display: block;
+            border-color: #0C0;
+        }
+
+    input[type="submit"] {
+        border: none;
+        background-color: skyblue;
+        color: #fff;
+       
+        text-transform: uppercase;
+        cursor: pointer;
+        font-size: 18px;
+        padding: 10px;
+    }
+
+        input[type="submit"]:hover {
+            background-color: #329dd5;
+        }
+
+#create-account-wrap {
+    background-color: skyblue;
+    color: #e51928;
+    font-size: 14px;
+    width: 100%;
+    padding: 10px 0;
+    border-radius: 0 0 4px 4px;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    #login-form-wrap {
+        width: 90%;
+        margin: 20px auto;
+        box-shadow: none;
+        padding-bottom: 10px;
+    }
+
+    #login-form {
+        padding: 0 15px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    input[type="submit"] {
+        font-size: 16px;
+    }
+}

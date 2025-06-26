@@ -1,0 +1,198 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="jobsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Fee">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UnqueId" Type="uniqueidentifier" />
+          <Property Name="General_OBC_EWS" Type="varchar" MaxLength="255" />
+          <Property Name="SC_ST_PwD_Ex_Serviceman" Type="varchar" MaxLength="255" />
+          <Property Name="For_Girls" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="JobPosts">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Department" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="LastDate" Type="date" Nullable="false" />
+          <Property Name="AdvertisementDate" Type="date" Nullable="false" />
+          <Property Name="Location" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="OfficialNotification" Type="nvarchar(max)" />
+          <Property Name="NO_Post" Type="nvarchar(max)" />
+          <Property Name="UniqueId" Type="uniqueidentifier" />
+          <Property Name="mode" Type="varchar(max)" />
+          <Property Name="StateName" Type="nvarchar(max)" />
+          <Property Name="min_Age" Type="nvarchar(max)" />
+          <Property Name="max_Age" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="PostItem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UnqueId" Type="uniqueidentifier" />
+          <Property Name="PostName" Type="varchar(max)" />
+          <Property Name="NoOfPosts" Type="nvarchar" MaxLength="50" />
+          <Property Name="Qualification" Type="varchar(max)" />
+          <Property Name="Salary" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="tb_jobLinks">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UnqueId" Type="uniqueidentifier" />
+          <Property Name="link" Type="nvarchar(max)" />
+          <Property Name="linknamce" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityContainer Name="jobsModelStoreContainer">
+          <EntitySet Name="Fee" EntityType="Self.Fee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="JobPosts" EntityType="Self.JobPosts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PostItem" EntityType="Self.PostItem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_jobLinks" EntityType="Self.tb_jobLinks" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="jobsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="jobsEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tb_jobLinks" EntityType="jobsModel.tb_jobLinks" />
+          <EntitySet Name="Fees" EntityType="jobsModel.Fee" />
+          <EntitySet Name="PostItems" EntityType="jobsModel.PostItem" />
+          <EntitySet Name="JobPosts" EntityType="jobsModel.JobPost" />
+        </EntityContainer>
+        <EntityType Name="tb_jobLinks">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UnqueId" Type="Guid" />
+          <Property Name="link" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="linknamce" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Fee">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UnqueId" Type="Guid" />
+          <Property Name="General_OBC_EWS" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="SC_ST_PwD_Ex_Serviceman" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="For_Girls" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="PostItem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UnqueId" Type="Guid" />
+          <Property Name="PostName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="NoOfPosts" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Qualification" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Salary" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="JobPost">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Department" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="LastDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="AdvertisementDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Location" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OfficialNotification" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NO_Post" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UniqueId" Type="Guid" />
+          <Property Name="mode" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="StateName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="min_Age" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="max_Age" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="jobsModelStoreContainer" CdmEntityContainer="jobsEntities1">
+          <EntitySetMapping Name="tb_jobLinks">
+            <EntityTypeMapping TypeName="jobsModel.tb_jobLinks">
+              <MappingFragment StoreEntitySet="tb_jobLinks">
+                <ScalarProperty Name="linknamce" ColumnName="linknamce" />
+                <ScalarProperty Name="link" ColumnName="link" />
+                <ScalarProperty Name="UnqueId" ColumnName="UnqueId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Fees">
+            <EntityTypeMapping TypeName="jobsModel.Fee">
+              <MappingFragment StoreEntitySet="Fee">
+                <ScalarProperty Name="For_Girls" ColumnName="For_Girls" />
+                <ScalarProperty Name="SC_ST_PwD_Ex_Serviceman" ColumnName="SC_ST_PwD_Ex_Serviceman" />
+                <ScalarProperty Name="General_OBC_EWS" ColumnName="General_OBC_EWS" />
+                <ScalarProperty Name="UnqueId" ColumnName="UnqueId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PostItems">
+            <EntityTypeMapping TypeName="jobsModel.PostItem">
+              <MappingFragment StoreEntitySet="PostItem">
+                <ScalarProperty Name="Salary" ColumnName="Salary" />
+                <ScalarProperty Name="Qualification" ColumnName="Qualification" />
+                <ScalarProperty Name="NoOfPosts" ColumnName="NoOfPosts" />
+                <ScalarProperty Name="PostName" ColumnName="PostName" />
+                <ScalarProperty Name="UnqueId" ColumnName="UnqueId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="JobPosts">
+            <EntityTypeMapping TypeName="jobsModel.JobPost">
+              <MappingFragment StoreEntitySet="JobPosts">
+                <ScalarProperty Name="max_Age" ColumnName="max_Age" />
+                <ScalarProperty Name="min_Age" ColumnName="min_Age" />
+                <ScalarProperty Name="StateName" ColumnName="StateName" />
+                <ScalarProperty Name="mode" ColumnName="mode" />
+                <ScalarProperty Name="UniqueId" ColumnName="UniqueId" />
+                <ScalarProperty Name="NO_Post" ColumnName="NO_Post" />
+                <ScalarProperty Name="OfficialNotification" ColumnName="OfficialNotification" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="AdvertisementDate" ColumnName="AdvertisementDate" />
+                <ScalarProperty Name="LastDate" ColumnName="LastDate" />
+                <ScalarProperty Name="Department" ColumnName="Department" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,571 @@
+@{
+    ViewBag.Title = "Job Form";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+
+}
+@model IEnumerable<WebApplication24.Models.JobPost>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="~/css/login2.css" rel="stylesheet" />
+    <link href="~/css/jobgrid.css" rel="stylesheet" />
+    <link href="~/css/JobAddform.css" rel="stylesheet" />
+    <meta charset="UTF-8">
+    <title>Responsive Job Form</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+    </style>
+
+</head>
+
+<body>
+
+    <div class="button-group">
+        <button id="add" class="responsive-button" type="button" data-action="add">Add</button>
+        <button class="responsive-button" type="button" data-action="edit">Edit</button>
+        <button class="responsive-button" type="button" data-action="changepassword">Change Password</button>
+        <button class="responsive-button" type="button" data-action="delete">Delete</button>
+    </div>
+    <script>
+        $('#add').on('click', function () {
+            var Btn_action = $(this).data('action');
+            var Method_Name = '@ViewBag.Action';
+
+
+
+            document.getElementById('jobform-modal').style.display = 'block';
+        });
+    </script>
+    <div id="jobPopup" class="modal">
+        <div class="modal-content">
+
+            @if (Model != null)
+            {
+
+                <table class="responsive-table">
+                    <thead>
+                        <tr style="background-color: skyblue; height: 43px;">
+                            <th>Advt. Date</th>
+                            <th>Department</th>
+                            <th>Post Details</th>
+                            <th>Qualification</th>
+
+                            <th>Location</th>
+                            <th>Last Date</th>
+                            @*<th>No. of Posts</th>*@
+                            @*<th>Notification File</th>*@
+                            @*<th>Post Details</th>*@
+                            @*<th>Sections</th>*@
+                            <th>More Info</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var job in Model)
+                        {
+                            <tr>
+                                <td>@job.AdvertisementDate.ToShortDateString()</td>
+                                <td>@job.Department</td>
+                                <td>
+                                    @{
+                                        var postNames = job.Posts?.Select(p => p.PostName).ToList() ?? new List<string>();
+                                        var postSummary = "";
+
+                                        if (postNames.Count == 0)
+                                        {
+                                            postSummary = "N/A";
+                                        }
+                                        else if (postNames.Count == 1)
+                                        {
+                                            postSummary = postNames[0];
+                                        }
+                                        else if (postNames.Count == 2)
+                                        {
+                                            postSummary = string.Join(", ", postNames);
+                                        }
+                                        else
+                                        {
+                                            postSummary = string.Join(", ", postNames.Take(2)) + " and More";
+                                        }
+                                    }
+
+                                    @($"{postSummary} – {job.NO_Post} Posts")
+                                </td>
+                                <td>
+                                    @{
+                                        var qualifications = job.Posts?.Select(p => p.Qualification).ToList() ?? new List<string>();
+                                        var qualificationSummary = qualifications.Count > 0 ? string.Join(", ", qualifications) : "N/A";
+                                    }
+                                    @qualificationSummary
+                                </td>
+
+                                <td>@job.Location</td>
+                                <td>@job.LastDate.ToShortDateString()</td>
+
+
+                                <td>
+                                    <a href="@Url.Action("Details", "Post", new { id = job.Id })" class="btn btn-primary btn-sm">Get Details</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+    <div id="jobform-modal" class="jobform-modal">
+        <div class="jobform-modal-content">
+            <header class="From_header">
+                <span class="header-title">Add User</span>
+                <span class="btn_cross" id="closeDialog">&times;</span>
+            </header>
+
+            <!-- Step Progress Bar -->
+            <div class="jobform-step-bar">
+                <div id="jobform-step1" class="jobform-step active">1</div>
+                <div id="jobform-step2" class="jobform-step">2</div>
+                <div id="jobform-step3" class="jobform-step">3</div>
+            </div>
+
+            <div style="padding: 0 12px;">
+                @using (Html.BeginForm("SubmitJobForm", "Post", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                <div id="jobform-step-content-1" class="jobform-step-content">
+                    <div class="jobform-form-row jobform-two-column">
+                        <div class="jobform-form-group">
+                            <label>Department:</label>
+                            @Html.TextBox("Department", null, new { @id = "Department", required = "required" })
+                        </div>
+                        <div class="jobform-form-group">
+                            <label>NO.Of Posts:</label>
+                            @Html.TextBox("NO_Post", null, new { @id = "NO_Post", required = "required" })
+                        </div>
+                    </div>
+                    <div style="position: relative; border: 1px solid red; padding: 15px 10px 10px 10px; margin-top: 20px;">
+                        <span style="position: absolute;top: -12px;left: 10px;background: white;padding: 0 5px;font-weight: bold;color: red;font-family: sans-serif;font-size: 14px;">
+                            Age Details
+                        </span>
+                        <div class="jobform-form-row jobform-two-column">
+                            <div class="jobform-form-group">
+                                <label>Minimum Age:</label>
+                                @Html.TextBox("min_Age", null, new { @id = "min_Age", required = "required" })
+                            </div>
+                            <div class="jobform-form-group">
+                                <label> Maximum Age:</label>
+                                @Html.TextBox("max_Age", null, new { @id = "max_Age", required = "required" })
+                            </div>
+                        </div>
+                    </div>
+                    <div style="position: relative; border: 1px solid red; padding: 15px 10px 10px 10px; margin-top: 20px;">
+                        <span style="position: absolute;top: -12px;left: 10px;background: white;padding: 0 5px;font-weight: bold;color: red;font-family: sans-serif;font-size: 14px;">
+                            Mode Of Applicatin
+                        </span>
+                        <div class="jobform-checkbox-group">
+                            <label><input type="checkbox" name="mode" value="online" onclick="job_Checkboxmode(this)" /> Online</label>
+                            <label><input type="checkbox" name="mode" value="ofline" onclick="job_Checkboxmode(this)" /> Ofline</label>
+                        </div>
+                    </div>
+                    <br />
+                    <div style="position: relative; border: 1px solid red; padding: 15px 10px 10px 10px; margin-top: 20px;">
+                        <span style="position: absolute;top: -12px;left: 10px;background: white;padding: 0 5px;font-weight: bold;color: red;font-family: sans-serif;font-size: 14px;
+    ">
+                            Full Job Details
+                        </span>
+                        <div id="postRowsContainer">
+                            <div class="jobform-form-row post-row jobform-two-column" style="gap: 10px;">
+                                <div class="jobform-form-group width-textbox-grup">
+                                    <label>Post Name:</label>
+                                    <input type="text" name="Posts[0].PostName" required placeholder="Post Name" />
+                                </div>
+                                <div class="jobform-form-group width-textbox-grup">
+                                    <label>NO.Of Posts:</label>
+                                    <input type="text" name="Posts[0].NoOfPosts" required placeholder="No. of Posts" />
+                                </div>
+                                <div class="jobform-form-group width-textbox-grup">
+                                    <label>Qualification:</label>
+                                    <input type="text" name="Posts[0].Qualification" required placeholder="Qualification" />
+                                </div>
+                                <div class="jobform-form-group width-textbox-grup">
+                                    <label>Salary:</label>
+                                    <input type="text" name="Posts[0].Salary" required placeholder="Salary" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="jobform-form-row">
+                            <button type="button" onclick="addPostRow()" class="jobform-submit-button">+ Add Another Post</button>
+                        </div>
+                    </div>
+                    <div style="position: relative; border: 1px solid red; padding: 15px 10px 10px 10px; margin-top: 20px;">
+                        <span style="position: absolute;top: -12px;left: 10px;background: white;padding: 0 5px;font-weight: bold;color: red;font-family: sans-serif;font-size: 14px;">
+                            Fee Detail
+                        </span>
+                        <div id="postRowsContainer2">
+                            <div class="jobform-form-row post-row jobform-two-column" style="gap: 10px;">
+                                <div class="jobform-form-group width-textbox-grup">
+
+                                    <input type="text" name="FEELIST[0].General_OBC_EWS" placeholder="General/OBC/EWS" />
+                                </div>
+                                <div class="jobform-form-group width-textbox-grup">
+
+                                    <input type="text" name="FEELIST[0].SC_ST_PwD_Ex_Serviceman" placeholder="SC/ST/PwD/Ex-Serviceman" />
+                                </div>
+                                <div class="jobform-form-group width-textbox-grup">
+
+                                    <input type="text" name="FEELIST[0].For_Girls" placeholder="For Girsl" />
+                                </div>
+
+                            </div>
+                        </div>
+
+                        @*<div class="jobform-form-row">
+                <button type="button" onclick="addPostRow()" class="jobform-submit-button">+ Add Another Post</button>
+            </div>*@
+                    </div>
+                    <div style="position: relative; border: 1px solid red; padding: 15px 10px 10px 10px; margin-top: 20px;">
+                        <span style="position: absolute;top: -12px;left: 10px;background: white;padding: 0 5px;font-weight: bold;color: red;font-family: sans-serif;font-size: 14px;">
+                            Important Dates
+                        </span>
+                        <div class="jobform-form-row jobform-two-column">
+                            <div class="jobform-form-group">
+                                <label for="LastDate">Last Date:</label>
+                                @Html.TextBox("LastDate", null, new { @id = "LastDate", type = "date", required = "required" })
+                            </div>
+                            <div class="jobform-form-group">
+                                <label for="AdvtDate">Advertisement Date:</label>
+                                @Html.TextBox("AdvertisementDate", null, new { @id = "AdvtDate", type = "date", required = "required" })
+                            </div>
+                        </div>
+                    </div>
+                    <div style="position: relative; border: 1px solid red; padding: 15px 10px 10px 10px; margin-top: 20px;">
+                        <span style="position: absolute;top: -12px;left: 10px;background: white;padding: 0 5px;font-weight: bold;color: red;font-family: sans-serif;font-size: 14px;">
+                            Job Location
+                        </span>
+                        <div class="jobform-checkbox-group">
+                            <label><input type="checkbox" name="Location" value="State" onclick="jobform_toggleCheckbox(this)" /> State</label>
+                            <label><input type="checkbox" name="Location" value="AllIndia" onclick="jobform_toggleCheckbox(this)" /> All India</label>
+                        </div>
+                        <div id="stateDropdown" style="margin-top: 10px; display: none;">
+                            <label for="StateName">Select State:</label>
+                            <select id="StateName" name="StateName">
+                                <option value="">-- Select State --</option>
+                                <option value="Andhra Pradesh">Andhra Pradesh</option>
+                                <option value="Assam">Assam</option>
+                                <option value="Bihar">Bihar</option>
+                                <option value="Chhattisgarh">Chhattisgarh</option>
+                                <option value="Delhi">Delhi</option>
+                                <option value="Gujarat">Gujarat</option>
+                                <option value="Haryana">Haryana</option>
+                                <option value="Himachal Pradesh">Himachal Pradesh</option>
+                                <option value="Jharkhand">Jharkhand</option>
+                                <option value="Karnataka">Karnataka</option>
+                                <option value="Kerala">Kerala</option>
+                                <option value="Madhya Pradesh">Madhya Pradesh</option>
+                                <option value="Maharashtra">Maharashtra</option>
+                                <option value="Odisha">Odisha</option>
+                                <option value="Punjab">Punjab</option>
+                                <option value="Rajasthan">Rajasthan</option>
+                                <option value="Tamil Nadu">Tamil Nadu</option>
+                                <option value="Telangana">Telangana</option>
+                                <option value="Uttar Pradesh">Uttar Pradesh</option>
+                                <option value="Uttarakhand">Uttarakhand</option>
+                                <option value="West Bengal">West Bengal</option>
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <button type="button" class="jobform-button-next">Next</button>
+                </div>
+
+                    <div id="jobform-step-content-2" class="jobform-step-content" style="display:none;">
+                        <div class="jobform-form-row jobform-two-column">
+                            <div class="jobform-form-group" style="width: 100%;">
+                                <label>Add Sections (Check to enable textbox):</label>
+                                <div id="checkbox-container">
+                                    @{
+                                        var sectionLabels = new[] { "Official Notification", "Official Website", "How to Apply", "Eligibility", "Important Dates" };
+                                    }
+
+                                    @for (int i = 0; i < sectionLabels.Length; i++)
+                                    {
+                                        var label = sectionLabels[i];
+                                        <div class="jobform-form-row jobform-two-column pair">
+                                            <div class="jobform-form-group">
+                                                <input type="hidden" name="Sections[@i].Label" value="@label" />
+                                                <input type="checkbox" class="chk-toggle" name="Sections[@i].IsChecked" value="true" />
+                                                <label>@label</label>
+                                            </div>
+                                            <div class="jobform-form-group">
+                                                <input type="text" class="chk-text" name="Sections[@i].Text" disabled placeholder="Enter text for @label" />
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+
+                                <div class="jobform-form-row jobform-two-column" style="margin-top: 10px;">
+                                    <div class="jobform-form-group">
+                                        <input type="text" id="newCheckboxLabel" placeholder="Enter new checkbox label" class="form-control" />
+                                    </div>
+                                    <div class="jobform-form-group">
+                                        <button type="button" id="addBtn" class="jobform-submit-button">Add</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="jobform-form-group" style="width: 100%;">
+                                <label for="OfficialNotification">Upload Official Notification:</label>
+                                <input type="file" name="OfficialNotification" id="OfficialNotification" />
+                                <div id="file-preview" style="margin-top: 10px;"></div>
+                            </div>
+                        </div>
+
+                        <div class="jobform-button-group">
+                            <button type="button" class="jobform-button-prev">Previous</button>
+                            <button type="button" class="jobform-button-preview">Preview</button>
+                        </div>
+                    </div>
+
+                    <div id="jobform-step-content-3" class="jobform-step-content" style="display:none;">
+                        <h3>Review Your Submission</h3>
+                        <div id="preview-content" class="jobform-form-group" style="padding: 10px; border: 1px solid #ccc; border-radius: 5px;"></div>
+
+                        <div class="jobform-button-group">
+                            <button type="button" class="jobform-button-prev-preview">Previous</button>
+                            <input type="submit" class="jobform-submit-button" value="Confirm & Submit" />
+                        </div>
+                    </div>
+                }
+            </div>
+            <footer class="Form_footer"></footer>
+        </div>
+    </div>
+
+    @*we have to validate this code affter some time i think no use*@
+
+    @*for adding multiple jobs*@
+    
+    <script>
+        let postIndex = 1;
+        function addPostRow() {
+            const container = document.getElementById('postRowsContainer');
+            const div = document.createElement('div');
+            div.className = 'jobform-form-row post-row';
+            div.style.display = 'flex';
+            div.style.gap = '10px';
+            div.style.marginBottom = '10px';
+            div.style.alignItems = 'center';
+
+            div.innerHTML = `
+                <div class="jobform-form-group width-textbox-grup">
+                    <input type="text" name="Posts[${postIndex}].PostName" required placeholder="Post Name" />
+                </div>
+                <div class="jobform-form-group width-textbox-grup">
+                    <input type="text" name="Posts[${postIndex}].NoOfPosts" required placeholder="No. of Posts" />
+                </div>
+                <div class="jobform-form-group width-textbox-grup">
+                    <input type="text" name="Posts[${postIndex}].Qualification" required placeholder="Qualification" />
+                </div>
+                <div class="jobform-form-group width-textbox-grup">
+                    <input type="text" name="Posts[${postIndex}].Salary" required placeholder="Salary" />
+                </div>
+                <button type="button" onclick="removePostRow(this)"
+                    style="background: red; color: white; border: none; font-weight: bold; padding: 0 8px; border-radius: 4px; height: 32px; cursor: pointer;">
+                    &times;
+                </button>
+            `;
+
+            container.appendChild(div);
+            postIndex++;
+        }
+
+        function removePostRow(button) {
+            const row = button.parentNode;
+            row.remove();
+        }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        document.querySelector(".jobform-button-preview").addEventListener("click", function () {
+            const preview = document.getElementById("preview-content");
+            preview.innerHTML = "";
+
+            const department = document.getElementById("Department").value;
+            const modes = [...document.getElementsByName("mode")].filter(c => c.checked).map(c => c.value).join(", ");
+            const lastDate = document.getElementById("LastDate").value;
+            const advtDate = document.getElementById("AdvtDate").value;
+            const locations = [...document.getElementsByName("Location")].filter(c => c.checked).map(c => c.value).join(", ");
+            const selectedState = document.getElementById("StateName")?.value || "";
+            // Gather all posts
+            let posts = "";
+            document.querySelectorAll("#postRowsContainer .post-row").forEach((row, i) => {
+                const postName = row.querySelector(`input[name="Posts[${i}].PostName"]`)?.value || "";
+                const noPosts = row.querySelector(`input[name="Posts[${i}].NoOfPosts"]`)?.value || "";
+                const qualification = row.querySelector(`input[name="Posts[${i}].Qualification"]`)?.value || "";
+              
+                posts += `<p><strong>Post ${i + 1}:</strong> ${postName} | ${noPosts} | ${qualification}</p>`;
+            });
+
+            // Sections
+            const sections = [];
+            document.querySelectorAll("#checkbox-container .pair").forEach(pair => {
+                const isChecked = pair.querySelector('.chk-toggle')?.checked;
+                const label = pair.querySelector('input[type=hidden]')?.value;
+                const text = pair.querySelector('.chk-text')?.value;
+
+                if (isChecked) {
+                    sections.push(`<strong>${label}:</strong> ${text}`);
+                }
+                if (locations.includes("State") && selectedState) {
+                    preview.innerHTML += `<p><strong>Selected State:</strong> ${selectedState}</p>`;
+                }
+            });
+
+            preview.innerHTML = `
+                <p><strong>Department:</strong> ${department}</p>
+                <hr />
+                <p><strong>Mode of Application:</strong> ${modes}</p>
+                <h4>Posts</h4>
+                ${posts || "No posts added."}
+                <p><strong>Last Date:</strong> ${lastDate}</p>
+                <p><strong>Advertisement Date:</strong> ${advtDate}</p>
+                <p><strong>Location:</strong> ${locations}</p>
+                <hr />
+                <h4>Selected Sections</h4>
+                <div>${sections.join("<br/>") || "None selected."}</div>
+            `;
+
+            // Move to Step 3
+            document.getElementById("jobform-step-content-2").style.display = "none";
+            document.getElementById("jobform-step-content-3").style.display = "block";
+            document.getElementById("jobform-step2").classList.add("completed");
+            document.getElementById("jobform-step3").classList.add("active");
+        });
+
+
+        // Back to Step 2 from preview
+        document.querySelector(".jobform-button-prev-preview").addEventListener("click", function () {
+            document.getElementById("jobform-step-content-3").style.display = "none";
+            document.getElementById("jobform-step-content-2").style.display = "block";
+            document.getElementById("jobform-step3").classList.remove("active");
+        });
+    </script>
+
+    <script>
+        document.getElementById("OfficialNotification").addEventListener("change", function (e) {
+            const preview = document.getElementById("file-preview");
+            preview.innerHTML = "";
+
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const fileType = file.type;
+
+            if (fileType.startsWith("image/")) {
+                const img = document.createElement("img");
+                img.src = URL.createObjectURL(file);
+                img.style.maxWidth = "100%";
+                img.style.maxHeight = "300px";
+                preview.appendChild(img);
+            } else if (fileType === "application/pdf") {
+                const embed = document.createElement("embed");
+                embed.src = URL.createObjectURL(file);
+                embed.type = "application/pdf";
+                embed.width = "100%";
+                embed.height = "400px";
+                preview.appendChild(embed);
+            } else {
+                preview.textContent = "No preview available for this file type.";
+            }
+        });
+    </script>
+
+    <script>
+        let sectionIndex = 5; // Since 0-4 are already used
+
+        $('#addBtn').click(function () {
+            const label = $('#newCheckboxLabel').val().trim();
+            if (label === "") {
+                alert("Please enter a label name.");
+                return;
+            }
+
+            const html = `
+                                    <div class="jobform-form-row jobform-two-column pair">
+                                        <div class="jobform-form-group">
+                                            <input type="hidden" name="Sections[${sectionIndex}].Label" value="${label}" />
+                                            <input type="checkbox" class="chk-toggle" name="Sections[${sectionIndex}].IsChecked" value="true" />
+                                            <label>${label}</label>
+                                        </div>
+                                        <div class="jobform-form-group">
+                                            <input type="text" class="chk-text" name="Sections[${sectionIndex}].Text" disabled placeholder="Enter text for ${label}" />
+                                        </div>
+                                    </div>
+                                    `;
+            $('#checkbox-container').append(html);
+            $('#newCheckboxLabel').val('');
+            sectionIndex++;
+        });
+
+        // Enable/disable textbox based on checkbox
+        $(document).on('change', '.chk-toggle', function () {
+            $(this).closest('.pair').find('.chk-text').prop('disabled', !this.checked);
+        });
+    </script>
+
+
+    <script>
+        function jobform_toggleCheckbox(clicked) {
+            const stateDropdown = document.getElementById("stateDropdown");
+            const stateCheckbox = document.querySelector('input[name="Location"][value="State"]');
+            const allIndiaCheckbox = document.querySelector('input[name="Location"][value="AllIndia"]');
+
+            if (clicked.value === "AllIndia") {
+                stateDropdown.style.display = "none";
+            }
+
+            if (clicked.value === "State") {
+                if (stateCheckbox.checked && !allIndiaCheckbox.checked) {
+                    stateDropdown.style.display = "block";
+                } else {
+                    stateDropdown.style.display = "none";
+                }
+            }
+
+            // Uncheck both if same checkbox clicked again
+            if (!clicked.checked) {
+                stateDropdown.style.display = "none";
+            }
+
+            const checkboxes = document.getElementsByName("Location");
+            checkboxes.forEach(cb => {
+                if (cb !== clicked) cb.checked = false;
+            });
+        }
+        function job_Checkboxmode(clicked) {
+            const checkboxes = document.getElementsByName("mode");
+            checkboxes.forEach(cb => {
+                if (cb !== clicked) cb.checked = false;
+            });
+        }
+
+        // Navigation logic
+        document.querySelector(".jobform-button-next").addEventListener("click", function () {
+            document.getElementById("jobform-step-content-1").style.display = "none";
+            document.getElementById("jobform-step-content-2").style.display = "block";
+            document.getElementById("jobform-step1").classList.add("completed");
+            document.getElementById("jobform-step2").classList.add("active");
+        });
+
+        document.querySelector(".jobform-button-prev").addEventListener("click", function () {
+            document.getElementById("jobform-step-content-2").style.display = "none";
+            document.getElementById("jobform-step-content-1").style.display = "block";
+            document.getElementById("jobform-step2").classList.remove("active");
+            document.getElementById("jobform-step1").classList.remove("completed");
+        });
+    </script>
+
+
+
+</body>
+</html>

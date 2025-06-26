@@ -1,0 +1,33 @@
+﻿
+
+<link href="~/css/login.css" rel="stylesheet" />
+<body>
+
+    
+    <!-- partial:index.partial.html -->
+    <div id="login-form-wrap">
+        <h2 style="background-color: skyblue; height: 44px;">Login </h2>
+        <form id="login-form" action="@Url.Action("Login", "Login")" method="get">
+            @* <form id="login-form"> *@
+            <p>
+                <input type="text" id="username" name="username" placeholder="Username" required="">
+                <i class="validation"><span></span><span></span></i>
+            </p>
+            <p>
+                <input type="password" id="password" name="password" placeholder="Password" required="">
+                <i class="validation"><span></span><span></span></i>
+            </p>
+            <p>
+                <input type="submit" id="login" value="Login">
+                @*  <input type="submit" onclick="window.location.href='@Url.Action("Login", "Home")'" id="login" value="Login"> *@
+            </p>
+        </form>
+        <div id="create-account-wrap">
+            <p>@TempData["LoginError"]</a></p><p>
+            </p>
+        </div><!--create-account-wrap-->
+    </div><!--login-form-wrap-->
+    <!-- partial -->
+</body>
+
+

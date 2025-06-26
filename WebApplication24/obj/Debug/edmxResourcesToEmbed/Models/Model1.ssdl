@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="jobsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Fee">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UnqueId" Type="uniqueidentifier" />
+    <Property Name="General_OBC_EWS" Type="varchar" MaxLength="255" />
+    <Property Name="SC_ST_PwD_Ex_Serviceman" Type="varchar" MaxLength="255" />
+    <Property Name="For_Girls" Type="varchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="JobPosts">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Department" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="LastDate" Type="date" Nullable="false" />
+    <Property Name="AdvertisementDate" Type="date" Nullable="false" />
+    <Property Name="Location" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="OfficialNotification" Type="nvarchar(max)" />
+    <Property Name="NO_Post" Type="nvarchar(max)" />
+    <Property Name="UniqueId" Type="uniqueidentifier" />
+    <Property Name="mode" Type="varchar(max)" />
+    <Property Name="StateName" Type="nvarchar(max)" />
+    <Property Name="min_Age" Type="nvarchar(max)" />
+    <Property Name="max_Age" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="PostItem">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UnqueId" Type="uniqueidentifier" />
+    <Property Name="PostName" Type="varchar(max)" />
+    <Property Name="NoOfPosts" Type="nvarchar" MaxLength="50" />
+    <Property Name="Qualification" Type="varchar(max)" />
+    <Property Name="Salary" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="tb_jobLinks">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UnqueId" Type="uniqueidentifier" />
+    <Property Name="link" Type="nvarchar(max)" />
+    <Property Name="linknamce" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityContainer Name="jobsModelStoreContainer">
+    <EntitySet Name="Fee" EntityType="Self.Fee" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="JobPosts" EntityType="Self.JobPosts" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PostItem" EntityType="Self.PostItem" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_jobLinks" EntityType="Self.tb_jobLinks" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

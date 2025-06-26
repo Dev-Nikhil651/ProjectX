@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="jobsModelStoreContainer" CdmEntityContainer="jobsEntities1">
+    <EntitySetMapping Name="tb_jobLinks">
+      <EntityTypeMapping TypeName="jobsModel.tb_jobLinks">
+        <MappingFragment StoreEntitySet="tb_jobLinks">
+          <ScalarProperty Name="linknamce" ColumnName="linknamce" />
+          <ScalarProperty Name="link" ColumnName="link" />
+          <ScalarProperty Name="UnqueId" ColumnName="UnqueId" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Fees">
+      <EntityTypeMapping TypeName="jobsModel.Fee">
+        <MappingFragment StoreEntitySet="Fee">
+          <ScalarProperty Name="For_Girls" ColumnName="For_Girls" />
+          <ScalarProperty Name="SC_ST_PwD_Ex_Serviceman" ColumnName="SC_ST_PwD_Ex_Serviceman" />
+          <ScalarProperty Name="General_OBC_EWS" ColumnName="General_OBC_EWS" />
+          <ScalarProperty Name="UnqueId" ColumnName="UnqueId" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PostItems">
+      <EntityTypeMapping TypeName="jobsModel.PostItem">
+        <MappingFragment StoreEntitySet="PostItem">
+          <ScalarProperty Name="Salary" ColumnName="Salary" />
+          <ScalarProperty Name="Qualification" ColumnName="Qualification" />
+          <ScalarProperty Name="NoOfPosts" ColumnName="NoOfPosts" />
+          <ScalarProperty Name="PostName" ColumnName="PostName" />
+          <ScalarProperty Name="UnqueId" ColumnName="UnqueId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="JobPosts">
+      <EntityTypeMapping TypeName="jobsModel.JobPost">
+        <MappingFragment StoreEntitySet="JobPosts">
+          <ScalarProperty Name="max_Age" ColumnName="max_Age" />
+          <ScalarProperty Name="min_Age" ColumnName="min_Age" />
+          <ScalarProperty Name="StateName" ColumnName="StateName" />
+          <ScalarProperty Name="mode" ColumnName="mode" />
+          <ScalarProperty Name="UniqueId" ColumnName="UniqueId" />
+          <ScalarProperty Name="NO_Post" ColumnName="NO_Post" />
+          <ScalarProperty Name="OfficialNotification" ColumnName="OfficialNotification" />
+          <ScalarProperty Name="Location" ColumnName="Location" />
+          <ScalarProperty Name="AdvertisementDate" ColumnName="AdvertisementDate" />
+          <ScalarProperty Name="LastDate" ColumnName="LastDate" />
+          <ScalarProperty Name="Department" ColumnName="Department" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
