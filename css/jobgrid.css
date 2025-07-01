@@ -1,0 +1,34 @@
+/* Responsive Table - Fully Shrinkable, No Scroll */
+.responsive-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px auto;
+    table-layout: fixed; /* Forces cells to shrink */
+    word-wrap: break-word;
+}
+
+    .responsive-table th,
+    .responsive-table td {
+        padding: 7px;
+        border: 1px solid #ddd;
+        text-align: left;
+        font-size: 16px;
+
+    }
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .responsive-table th,
+    .responsive-table td {
+        font-size: 14px;
+        padding: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .responsive-table th,
+    .responsive-table td {
+        font-size: 12px;
+        padding: 6px;
+    }
+}
